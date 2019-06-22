@@ -12,6 +12,8 @@ instance showC :: Show C where
    show R = "R"
    show B = "B"
 
+derive instance eqC :: Eq C
+
 data Cube = Cube C C C  C C C  C C C  C C C  C C C  C C C
                  C C C  C C C  C C C  C C C  C C C  C C C
                  C C C  C C C  C C C  C C C  C C C  C C C
@@ -40,6 +42,8 @@ instance showCube :: Show Cube where
                 line7 = "    " <> show r9 <> show r6 <> show r3 <> "\n"
                 line8 = "    " <> show r8 <> show r5 <> show r2 <> "\n"
                 line9 = "    " <> show r7 <> show r4 <> show r1
+
+derive instance eqCube :: Eq Cube
 
 f :: Cube -> Cube
 f   (Cube f1 f2 f3  r1 r2 r3  b1 b2 b3  u1 u2 u3  l1 l2 l3  d1 d2 d3
