@@ -5,12 +5,12 @@ import Prelude
 data C = W | O | Y | G | R | B
 
 instance showC :: Show C where
-   show W = "w"
-   show O = "o"
-   show Y = "y"
-   show G = "g"
-   show R = "r"
-   show B = "b"
+   show W = "W"
+   show O = "O"
+   show Y = "Y"
+   show G = "G"
+   show R = "R"
+   show B = "B"
 
 data Cube = Cube C C C  C C C  C C C  C C C  C C C  C C C
                  C C C  C C C  C C C  C C C  C C C  C C C
@@ -20,23 +20,32 @@ instance showCube :: Show Cube where
    show (Cube f1 f2 f3  r1 r2 r3  b1 b2 b3  u1 u2 u3  l1 l2 l3  d1 d2 d3
               f4 f5 f6  r4 r5 r6  b4 b5 b6  u4 u5 u6  l4 l5 l6  d4 d5 d6
               f7 f8 f9  r7 r8 r9  b7 b8 b9  u7 u8 u9  l7 l8 l9  d7 d8 d9)
-        =  show f1 <> show f2 <> show f3 <> " " <> show r1 <> show r2 <> show r3 <> " "
-        <> show b1 <> show b2 <> show b3 <> " " <> show u1 <> show u2 <> show u3 <> " "
-        <> show l1 <> show l2 <> show l3 <> " " <> show d1 <> show d2 <> show d3 <> "\n"
-        <> show f4 <> show f5 <> show f6 <> " " <> show r4 <> show r5 <> show r6 <> " "
-        <> show b4 <> show b5 <> show b6 <> " " <> show u4 <> show u5 <> show u6 <> " "
-        <> show l4 <> show l5 <> show l6 <> " " <> show d4 <> show d5 <> show d6 <> "\n"
-        <> show f7 <> show f8 <> show f9 <> " " <> show r7 <> show r8 <> show r9 <> " "
-        <> show b7 <> show b8 <> show b9 <> " " <> show u7 <> show u8 <> show u9 <> " "
-        <> show l7 <> show l8 <> show l9 <> " " <> show d7 <> show d8 <> show d9
+        = line1 <> line2 <> line3 <> line4 <> line5 <> line6 <> line7 <> line8 <> line9
+             where
+                line1 = "    " <> show l7 <> show l8 <> show l9 <> "\n"
+                line2 = "    " <> show l4 <> show l5 <> show l6 <> "\n"
+                line3 = "    " <> show l1 <> show l2 <> show l3 <> "\n"
+                line4 = show f7 <> show f8 <> show f9 <> " " <> show d3 <>
+                        show d6 <> show d9 <> " " <> show b9 <> show b6 <>
+                        show b3 <> " " <> show u3 <> show u2 <> show u1 <> "\n"
+                line5 = show f4 <> show f5 <> show f6 <> " " <> show d2 <>
+                        show d5 <> show d8 <> " " <> show b8 <> show b5 <>
+                        show b2 <> " " <> show u6 <> show u5 <> show u4 <> "\n"
+                line6 = show f1 <> show f2 <> show f3 <> " " <> show d1 <>
+                        show d4 <> show d7 <> " " <> show b7 <> show b4 <>
+                        show b1 <> " " <> show u9 <> show u8 <> show u7 <> "\n"
+                line7 = "    " <> show r9 <> show r6 <> show r3 <> "\n"
+                line8 = "    " <> show r8 <> show r5 <> show r2 <> "\n"
+                line9 = "    " <> show r7 <> show r4 <> show r1
+
 
 f :: Cube -> Cube
 f   (Cube f1 f2 f3  r1 r2 r3  b1 b2 b3  u1 u2 u3  l1 l2 l3  d1 d2 d3
           f4 f5 f6  r4 r5 r6  b4 b5 b6  u4 u5 u6  l4 l5 l6  d4 d5 d6
           f7 f8 f9  r7 r8 r9  b7 b8 b9  u7 u8 u9  l7 l8 l9  d7 d8 d9)
-  =  Cube f1 f2 f3  r1 r2 r3  b1 b2 b3  l1 u2 u3  d1 l2 l3  r7 r8 r9
-          f4 f5 f6  r4 r5 r6  b4 b5 b6  l4 u5 u6  d2 l5 l6  d4 d5 d6
-          f7 f8 f9  u1 u4 u7  b7 b8 b9  l7 u8 u9  d3 l8 l9  d7 d8 d9
+  =  Cube f7 f4 f1  r1 r2 r3  b1 b2 b3  l1 u2 u3  d1 l2 l3  r7 r8 r9
+          f8 f5 f2  r4 r5 r6  b4 b5 b6  l4 u5 u6  d2 l5 l6  d4 d5 d6
+          f9 f6 f3  u1 u4 u7  b7 b8 b9  l7 u8 u9  d3 l8 l9  d7 d8 d9
 
 r :: Cube -> Cube
 r   (Cube f1 f2 f3  r1 r2 r3  b1 b2 b3  u1 u2 u3  l1 l2 l3  d1 d2 d3
