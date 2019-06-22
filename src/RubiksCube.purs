@@ -25,15 +25,18 @@ instance showCube :: Show Cube where
                 line1 = "    " <> show l7 <> show l8 <> show l9 <> "\n"
                 line2 = "    " <> show l4 <> show l5 <> show l6 <> "\n"
                 line3 = "    " <> show l1 <> show l2 <> show l3 <> "\n"
-                line4 = show f7 <> show f8 <> show f9 <> " " <> show d3 <>
-                        show d6 <> show d9 <> " " <> show b9 <> show b6 <>
-                        show b3 <> " " <> show u3 <> show u2 <> show u1 <> "\n"
-                line5 = show f4 <> show f5 <> show f6 <> " " <> show d2 <>
-                        show d5 <> show d8 <> " " <> show b8 <> show b5 <>
-                        show b2 <> " " <> show u6 <> show u5 <> show u4 <> "\n"
-                line6 = show f1 <> show f2 <> show f3 <> " " <> show d1 <>
-                        show d4 <> show d7 <> " " <> show b7 <> show b4 <>
-                        show b1 <> " " <> show u9 <> show u8 <> show u7 <> "\n"
+                line4 = show f7 <> show f8 <> show f9 <> " " <>
+                        show d1 <> show d4 <> show d7 <> " " <>
+                        show b9 <> show b6 <> show b3 <> " " <>
+                        show u3 <> show u2 <> show u1 <> "\n"
+                line5 = show f4 <> show f5 <> show f6 <> " " <>
+                        show d2 <> show d5 <> show d8 <> " " <>
+                        show b8 <> show b5 <> show b2 <> " " <>
+                        show u6 <> show u5 <> show u4 <> "\n"
+                line6 = show f1 <> show f2 <> show f3 <> " " <>
+                        show d3 <> show d6 <> show d9 <> " " <>
+                        show b7 <> show b4 <> show b1 <> " " <>
+                        show u9 <> show u8 <> show u7 <> "\n"
                 line7 = "    " <> show r9 <> show r6 <> show r3 <> "\n"
                 line8 = "    " <> show r8 <> show r5 <> show r2 <> "\n"
                 line9 = "    " <> show r7 <> show r4 <> show r1
@@ -42,25 +45,25 @@ f :: Cube -> Cube
 f   (Cube f1 f2 f3  r1 r2 r3  b1 b2 b3  u1 u2 u3  l1 l2 l3  d1 d2 d3
           f4 f5 f6  r4 r5 r6  b4 b5 b6  u4 u5 u6  l4 l5 l6  d4 d5 d6
           f7 f8 f9  r7 r8 r9  b7 b8 b9  u7 u8 u9  l7 l8 l9  d7 d8 d9)
-  =  Cube f7 f4 f1  r1 r2 r3  b1 b2 b3  l1 u2 u3  d1 l2 l3  r7 r8 r9
+  =  Cube f7 f4 f1  r1 r2 r3  b1 b2 b3  l1 u2 u3  d3 l2 l3  r9 r8 r7
           f8 f5 f2  r4 r5 r6  b4 b5 b6  l4 u5 u6  d2 l5 l6  d4 d5 d6
-          f9 f6 f3  u1 u4 u7  b7 b8 b9  l7 u8 u9  d3 l8 l9  d7 d8 d9
+          f9 f6 f3  u1 u4 u7  b7 b8 b9  l7 u8 u9  d1 l8 l9  d7 d8 d9
 
 r :: Cube -> Cube
 r   (Cube f1 f2 f3  r1 r2 r3  b1 b2 b3  u1 u2 u3  l1 l2 l3  d1 d2 d3
           f4 f5 f6  r4 r5 r6  b4 b5 b6  u4 u5 u6  l4 l5 l6  d4 d5 d6
           f7 f8 f9  r7 r8 r9  b7 b8 b9  u7 u8 u9  l7 l8 l9  d7 d8 d9)
-  =  Cube d1 d4 d7  r7 r4 r1  u7 b2 b3  u1 u2 u3  l1 l2 l3  b7 d2 d3
-          f4 f5 f6  r8 r5 r2  u8 b5 b6  u4 u5 u6  l4 l5 l6  b4 d5 d6
-          f7 f8 f9  r9 r6 r3  u9 b8 b9  f3 f2 f1  l7 l8 l9  b1 d8 d9
+  =  Cube d3 d6 d9  r7 r4 r1  u7 b2 b3  u1 u2 u3  l1 l2 l3  d1 d2 b7
+          f4 f5 f6  r8 r5 r2  u8 b5 b6  u4 u5 u6  l4 l5 l6  d4 d5 b4
+          f7 f8 f9  r9 r6 r3  u9 b8 b9  f3 f2 f1  l7 l8 l9  d7 d8 b1
 
 b :: Cube -> Cube
 b   (Cube f1 f2 f3  r1 r2 r3  b1 b2 b3  u1 u2 u3  l1 l2 l3  d1 d2 d3
           f4 f5 f6  r4 r5 r6  b4 b5 b6  u4 u5 u6  l4 l5 l6  d4 d5 d6
           f7 f8 f9  r7 r8 r9  b7 b8 b9  u7 u8 u9  l7 l8 l9  d7 d8 d9)
-  =  Cube f1 f2 f3  d7 d8 d9  b7 b4 b1  u1 u2 r1  l1 l2 u3  d1 d2 d3
+  =  Cube f1 f2 f3  d9 d8 d7  b7 b4 b1  u1 u2 r1  l1 l2 u3  d1 d2 d3
           f4 f5 f6  r4 r5 r6  b8 b5 b2  u4 u5 r2  l4 l5 u6  d4 d5 d6
-          f7 f8 f9  r7 r8 r9  b9 b6 b3  u7 u8 r3  l7 l8 u9  l3 l6 l9
+          f7 f8 f9  r7 r8 r9  b9 b6 b3  u7 u8 r3  l7 l8 u9  l9 l6 l3
 
 u :: Cube -> Cube
 u   (Cube f1 f2 f3  r1 r2 r3  b1 b2 b3  u1 u2 u3  l1 l2 l3  d1 d2 d3
@@ -74,25 +77,25 @@ l :: Cube -> Cube
 l   (Cube f1 f2 f3  r1 r2 r3  b1 b2 b3  u1 u2 u3  l1 l2 l3  d1 d2 d3
           f4 f5 f6  r4 r5 r6  b4 b5 b6  u4 u5 u6  l4 l5 l6  d4 d5 d6
           f7 f8 f9  r7 r8 r9  b7 b8 b9  u7 u8 u9  l7 l8 l9  d7 d8 d9)
-  =  Cube f1 f2 f3  r1 r2 r3  b1 b2 d9  b3 b6 b9  l7 l4 l1  d1 d2 f7
-          f4 f5 f6  r4 r5 r6  b4 b5 d6  u4 u5 u6  l8 l5 l2  d4 d5 f8
-          u3 u2 u1  r7 r8 r9  b7 b8 d3  u7 u8 u9  l9 l6 l3  d7 d8 f9
+  =  Cube f1 f2 f3  r1 r2 r3  b1 b2 d7  b3 b6 b9  l7 l4 l1  f7 d2 d3
+          f4 f5 f6  r4 r5 r6  b4 b5 d4  u4 u5 u6  l8 l5 l2  f8 d5 d6
+          u3 u2 u1  r7 r8 r9  b7 b8 d1  u7 u8 u9  l9 l6 l3  f9 d8 d9
 
 d :: Cube -> Cube
 d   (Cube f1 f2 f3  r1 r2 r3  b1 b2 b3  u1 u2 u3  l1 l2 l3  d1 d2 d3
           f4 f5 f6  r4 r5 r6  b4 b5 b6  u4 u5 u6  l4 l5 l6  d4 d5 d6
           f7 f8 f9  r7 r8 r9  b7 b8 b9  u7 u8 u9  l7 l8 l9  d7 d8 d9)
-  =  Cube f1 f2 l1  r1 r2 f3  b1 b2 b3  u1 u2 u3  b9 b8 b7  d3 d6 d9
-          f4 f5 l2  r4 r5 f6  b4 b5 b6  u4 u5 u6  l4 l5 l6  d2 d5 d8
-          f7 f8 l3  r7 r8 f9  r9 r6 r3  u7 u8 u9  l7 l8 l9  d1 d4 d7
+  =  Cube f1 f2 l1  r1 r2 f3  b1 b2 b3  u1 u2 u3  b9 b8 b7  d7 d4 d1
+          f4 f5 l2  r4 r5 f6  b4 b5 b6  u4 u5 u6  l4 l5 l6  d8 d5 d2
+          f7 f8 l3  r7 r8 f9  r9 r6 r3  u7 u8 u9  l7 l8 l9  d9 d6 d3
 
 s :: Cube -> Cube
 s   (Cube f1 f2 f3  r1 r2 r3  b1 b2 b3  u1 u2 u3  l1 l2 l3  d1 d2 d3
           f4 f5 f6  r4 r5 r6  b4 b5 b6  u4 u5 u6  l4 l5 l6  d4 d5 d6
           f7 f8 f9  r7 r8 r9  b7 b8 b9  u7 u8 u9  l7 l8 l9  d7 d8 d9)
-  =  Cube f1 f2 f3  r1 r2 r3  b1 b2 b3  u1 l2 u3  l1 d4 l3  d1 d2 d3
-          f4 f5 f6  u2 u5 u8  b4 b5 b6  u4 l5 u6  l4 d5 l6  r4 r5 r6
-          f7 f8 f9  r7 r8 r9  b7 b8 b9  u7 l8 u9  l7 d6 l9  d7 d8 d9
+  =  Cube f1 f2 f3  r1 r2 r3  b1 b2 b3  u1 l2 u3  l1 d6 l3  d1 d2 d3
+          f4 f5 f6  u2 u5 u8  b4 b5 b6  u4 l5 u6  l4 d5 l6  r6 r5 r4
+          f7 f8 f9  r7 r8 r9  b7 b8 b9  u7 l8 u9  l7 d4 l9  d7 d8 d9
 
 m :: Cube -> Cube
 m   (Cube f1 f2 f3  r1 r2 r3  b1 b2 b3  u1 u2 u3  l1 l2 l3  d1 d2 d3
