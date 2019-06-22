@@ -38,7 +38,6 @@ instance showCube :: Show Cube where
                 line8 = "    " <> show r8 <> show r5 <> show r2 <> "\n"
                 line9 = "    " <> show r7 <> show r4 <> show r1
 
-
 f :: Cube -> Cube
 f   (Cube f1 f2 f3  r1 r2 r3  b1 b2 b3  u1 u2 u3  l1 l2 l3  d1 d2 d3
           f4 f5 f6  r4 r5 r6  b4 b5 b6  u4 u5 u6  l4 l5 l6  d4 d5 d6
