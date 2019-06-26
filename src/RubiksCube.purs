@@ -1,4 +1,31 @@
-module RubiksCube where
+module RubiksCube
+   ( Cube
+   , createCube
+   , f
+   , f'
+   , r
+   , r'
+   , b
+   , b'
+   , u
+   , u'
+   , l
+   , l'
+   , d
+   , d'
+   , s
+   , s'
+   , m
+   , m'
+   , e
+   , e'
+   , x
+   , x'
+   , y
+   , y'
+   , z
+   , z'
+   ) where
 
 import Prelude
 
@@ -45,119 +72,106 @@ instance showCube :: Show Cube where
 
 derive instance eqCube :: Eq Cube
 
+createCube :: Cube
+createCube = Cube W W W  O O O  Y Y Y  G G G  R R R  B B B
+                  W W W  O O O  Y Y Y  G G G  R R R  B B B
+                  W W W  O O O  Y Y Y  G G G  R R R  B B B
+
+f_ :: Cube -> Cube
+f_   (Cube f1 f2 f3  r1 r2 r3  b1 b2 b3  u1 u2 u3  l1 l2 l3  d1 d2 d3
+           f4 f5 f6  r4 r5 r6  b4 b5 b6  u4 u5 u6  l4 l5 l6  d4 d5 d6
+           f7 f8 f9  r7 r8 r9  b7 b8 b9  u7 u8 u9  l7 l8 l9  d7 d8 d9)
+   =  Cube f7 f4 f1  r1 r2 r3  b1 b2 b3  l1 u2 u3  d3 l2 l3  r9 r8 r7
+           f8 f5 f2  r4 r5 r6  b4 b5 b6  l4 u5 u6  d2 l5 l6  d4 d5 d6
+           f9 f6 f3  u1 u4 u7  b7 b8 b9  l7 u8 u9  d1 l8 l9  d7 d8 d9
+
+s_ :: Cube -> Cube
+s_   (Cube f1 f2 f3  r1 r2 r3  b1 b2 b3  u1 u2 u3  l1 l2 l3  d1 d2 d3
+           f4 f5 f6  r4 r5 r6  b4 b5 b6  u4 u5 u6  l4 l5 l6  d4 d5 d6
+           f7 f8 f9  r7 r8 r9  b7 b8 b9  u7 u8 u9  l7 l8 l9  d7 d8 d9)
+   =  Cube f1 f2 f3  r1 r2 r3  b1 b2 b3  u1 l2 u3  l1 d6 l3  d1 d2 d3
+           f4 f5 f6  u2 u5 u8  b4 b5 b6  u4 l5 u6  l4 d5 l6  r6 r5 r4
+           f7 f8 f9  r7 r8 r9  b7 b8 b9  u7 l8 u9  l7 d4 l9  d7 d8 d9
+
+x_ :: Cube -> Cube
+x_   (Cube f1 f2 f3  r1 r2 r3  b1 b2 b3  u1 u2 u3  l1 l2 l3  d1 d2 d3
+           f4 f5 f6  r4 r5 r6  b4 b5 b6  u4 u5 u6  l4 l5 l6  d4 d5 d6
+           f7 f8 f9  r7 r8 r9  b7 b8 b9  u7 u8 u9  l7 l8 l9  d7 d8 d9)
+   =  Cube d3 d6 d9  r7 r4 r1  u7 u4 u1  f9 f8 f7  l3 l6 l9  b9 b8 b7
+           d2 d5 d8  r8 r5 r2  u8 u5 u2  f6 f5 f4  l2 l5 l8  b6 b5 b4
+           d1 d4 d7  r9 r6 r3  u9 u6 u3  f3 f2 f1  l1 l4 l7  b3 b2 b1
+
+reverse :: (Cube -> Cube) -> (Cube -> Cube)
+reverse f = f >>> f >>> f
+
 f :: Cube -> Cube
-f   (Cube f1 f2 f3  r1 r2 r3  b1 b2 b3  u1 u2 u3  l1 l2 l3  d1 d2 d3
-          f4 f5 f6  r4 r5 r6  b4 b5 b6  u4 u5 u6  l4 l5 l6  d4 d5 d6
-          f7 f8 f9  r7 r8 r9  b7 b8 b9  u7 u8 u9  l7 l8 l9  d7 d8 d9)
-  =  Cube f7 f4 f1  r1 r2 r3  b1 b2 b3  l1 u2 u3  d3 l2 l3  r9 r8 r7
-          f8 f5 f2  r4 r5 r6  b4 b5 b6  l4 u5 u6  d2 l5 l6  d4 d5 d6
-          f9 f6 f3  u1 u4 u7  b7 b8 b9  l7 u8 u9  d1 l8 l9  d7 d8 d9
-
-r :: Cube -> Cube
-r   (Cube f1 f2 f3  r1 r2 r3  b1 b2 b3  u1 u2 u3  l1 l2 l3  d1 d2 d3
-          f4 f5 f6  r4 r5 r6  b4 b5 b6  u4 u5 u6  l4 l5 l6  d4 d5 d6
-          f7 f8 f9  r7 r8 r9  b7 b8 b9  u7 u8 u9  l7 l8 l9  d7 d8 d9)
-  =  Cube d3 d6 d9  r7 r4 r1  u7 b2 b3  u1 u2 u3  l1 l2 l3  d1 d2 b7
-          f4 f5 f6  r8 r5 r2  u8 b5 b6  u4 u5 u6  l4 l5 l6  d4 d5 b4
-          f7 f8 f9  r9 r6 r3  u9 b8 b9  f3 f2 f1  l7 l8 l9  d7 d8 b1
-
-b :: Cube -> Cube
-b   (Cube f1 f2 f3  r1 r2 r3  b1 b2 b3  u1 u2 u3  l1 l2 l3  d1 d2 d3
-          f4 f5 f6  r4 r5 r6  b4 b5 b6  u4 u5 u6  l4 l5 l6  d4 d5 d6
-          f7 f8 f9  r7 r8 r9  b7 b8 b9  u7 u8 u9  l7 l8 l9  d7 d8 d9)
-  =  Cube f1 f2 f3  d9 d8 d7  b7 b4 b1  u1 u2 r1  l1 l2 u3  d1 d2 d3
-          f4 f5 f6  r4 r5 r6  b8 b5 b2  u4 u5 r2  l4 l5 u6  d4 d5 d6
-          f7 f8 f9  r7 r8 r9  b9 b6 b3  u7 u8 r3  l7 l8 u9  l9 l6 l3
-
-u :: Cube -> Cube
-u   (Cube f1 f2 f3  r1 r2 r3  b1 b2 b3  u1 u2 u3  l1 l2 l3  d1 d2 d3
-          f4 f5 f6  r4 r5 r6  b4 b5 b6  u4 u5 u6  l4 l5 l6  d4 d5 d6
-          f7 f8 f9  r7 r8 r9  b7 b8 b9  u7 u8 u9  l7 l8 l9  d7 d8 d9)
-  =  Cube r1 f2 f3  b3 r2 r3  l9 l8 l7  u7 u4 u1  l1 l2 l3  d1 d2 d3
-          r4 f5 f6  b2 r5 r6  b4 b5 b6  u8 u5 u2  l4 l5 l6  d4 d5 d6
-          r7 f8 f9  b1 r8 r9  b7 b8 b9  u9 u6 u3  f1 f4 f7  d7 d8 d9
-
-l :: Cube -> Cube
-l   (Cube f1 f2 f3  r1 r2 r3  b1 b2 b3  u1 u2 u3  l1 l2 l3  d1 d2 d3
-          f4 f5 f6  r4 r5 r6  b4 b5 b6  u4 u5 u6  l4 l5 l6  d4 d5 d6
-          f7 f8 f9  r7 r8 r9  b7 b8 b9  u7 u8 u9  l7 l8 l9  d7 d8 d9)
-  =  Cube f1 f2 f3  r1 r2 r3  b1 b2 d7  b3 b6 b9  l7 l4 l1  f7 d2 d3
-          f4 f5 f6  r4 r5 r6  b4 b5 d4  u4 u5 u6  l8 l5 l2  f8 d5 d6
-          u3 u2 u1  r7 r8 r9  b7 b8 d1  u7 u8 u9  l9 l6 l3  f9 d8 d9
-
-d :: Cube -> Cube
-d   (Cube f1 f2 f3  r1 r2 r3  b1 b2 b3  u1 u2 u3  l1 l2 l3  d1 d2 d3
-          f4 f5 f6  r4 r5 r6  b4 b5 b6  u4 u5 u6  l4 l5 l6  d4 d5 d6
-          f7 f8 f9  r7 r8 r9  b7 b8 b9  u7 u8 u9  l7 l8 l9  d7 d8 d9)
-  =  Cube f1 f2 l1  r1 r2 f3  b1 b2 b3  u1 u2 u3  b9 b8 b7  d7 d4 d1
-          f4 f5 l2  r4 r5 f6  b4 b5 b6  u4 u5 u6  l4 l5 l6  d8 d5 d2
-          f7 f8 l3  r7 r8 f9  r9 r6 r3  u7 u8 u9  l7 l8 l9  d9 d6 d3
-
-s :: Cube -> Cube
-s   (Cube f1 f2 f3  r1 r2 r3  b1 b2 b3  u1 u2 u3  l1 l2 l3  d1 d2 d3
-          f4 f5 f6  r4 r5 r6  b4 b5 b6  u4 u5 u6  l4 l5 l6  d4 d5 d6
-          f7 f8 f9  r7 r8 r9  b7 b8 b9  u7 u8 u9  l7 l8 l9  d7 d8 d9)
-  =  Cube f1 f2 f3  r1 r2 r3  b1 b2 b3  u1 l2 u3  l1 d6 l3  d1 d2 d3
-          f4 f5 f6  u2 u5 u8  b4 b5 b6  u4 l5 u6  l4 d5 l6  r6 r5 r4
-          f7 f8 f9  r7 r8 r9  b7 b8 b9  u7 l8 u9  l7 d4 l9  d7 d8 d9
-
-m :: Cube -> Cube
-m   (Cube f1 f2 f3  r1 r2 r3  b1 b2 b3  u1 u2 u3  l1 l2 l3  d1 d2 d3
-          f4 f5 f6  r4 r5 r6  b4 b5 b6  u4 u5 u6  l4 l5 l6  d4 d5 d6
-          f7 f8 f9  r7 r8 r9  b7 b8 b9  u7 u8 u9  l7 l8 l9  d7 d8 d9)
-  =  Cube f1 f2 f3  r1 r2 r3  b1 d8 b3  u1 u2 u3  l1 l2 l3  d1 f4 d3
-          u6 u5 u4  r4 r5 r6  b4 d5 b6  b2 b5 b8  l4 l5 l6  d4 f5 d6
-          f7 f8 f9  r7 r8 r9  b7 d2 b9  u7 u8 u9  l7 l8 l9  d7 f6 d9
-
-e :: Cube -> Cube
-e   (Cube f1 f2 f3  r1 r2 r3  b1 b2 b3  u1 u2 u3  l1 l2 l3  d1 d2 d3
-          f4 f5 f6  r4 r5 r6  b4 b5 b6  u4 u5 u6  l4 l5 l6  d4 d5 d6
-          f7 f8 f9  r7 r8 r9  b7 b8 b9  u7 u8 u9  l7 l8 l9  d7 d8 d9)
-  =  Cube f1 l4 f3  r1 f2 r3  b1 b2 b3  u1 u2 u3  l1 l2 l3  d1 d2 d3
-          f4 l5 f6  r4 f5 r6  r8 r5 r2  u4 u5 u6  b6 b5 b4  d4 d5 d6
-          f7 l6 f9  r7 f8 r9  b7 b8 b9  u7 u8 u9  l7 l8 l9  d7 d8 d9
-
-x :: Cube -> Cube
-x = r <<< m' <<< l'
-
-y :: Cube -> Cube
-y = u <<< e' <<< d'
-
-z :: Cube -> Cube
-z = f <<< s <<< b'
+f = f_
 
 f' :: Cube -> Cube
-f' = f <<< f <<< f
+f' = reverse f
+
+r :: Cube -> Cube
+r = y >>> f >>> y'
 
 r' :: Cube -> Cube
-r' = r <<< r <<< r
+r' = reverse r
+
+b :: Cube -> Cube
+b = y >>> y >>> f >>> y >>> y
 
 b' :: Cube -> Cube
-b' = b <<< b <<< b
+b' = reverse b
+
+u :: Cube -> Cube
+u = x' >>> f >>> x
 
 u' :: Cube -> Cube
-u' = u <<< u <<< u
+u' = reverse u
+
+l :: Cube -> Cube
+l = y' >>> f >>> y
 
 l' :: Cube -> Cube
-l' = l <<< l <<< l
+l' = reverse l
+
+d :: Cube -> Cube
+d = x >>> f >>> x'
 
 d' :: Cube -> Cube
-d' = d <<< d <<< d
+d' = reverse d
+
+s :: Cube -> Cube
+s = s_
 
 s' :: Cube -> Cube
-s' = s <<< s <<< s
+s' = reverse s
+
+m :: Cube -> Cube
+m = y' >>> s >>> y
 
 m' :: Cube -> Cube
-m' = m <<< m <<< m
+m' = reverse m
+
+e :: Cube -> Cube
+e = x >>> s >>> x'
 
 e' :: Cube -> Cube
-e' = e <<< e <<< e
+e' = reverse e
+
+x :: Cube -> Cube
+x = x_
 
 x' :: Cube -> Cube
-x' = x <<< x <<< x
+x' = reverse x
+
+y :: Cube -> Cube
+y = u >>> e' >>> d'
 
 y' :: Cube -> Cube
-y' = y <<< y <<< y
+y' = reverse y
+
+z :: Cube -> Cube
+z = f >>> s >>> b'
 
 z' :: Cube -> Cube
-z' = z <<< z <<< z
+z' = reverse z
