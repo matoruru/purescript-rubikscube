@@ -1,30 +1,18 @@
 module RubiksCube
    ( Cube
    , createCube
-   , f
-   , f'
-   , r
-   , r'
-   , b
-   , b'
-   , u
-   , u'
-   , l
-   , l'
-   , d
-   , d'
-   , s
-   , s'
-   , m
-   , m'
-   , e
-   , e'
-   , x
-   , x'
-   , y
-   , y'
-   , z
-   , z'
+   , f, f'
+   , r, r'
+   , b, b'
+   , u, u'
+   , l, l'
+   , d, d'
+   , s, s'
+   , m, m'
+   , e, e'
+   , x, x'
+   , y, y'
+   , z, z'
    ) where
 
 import Prelude
@@ -77,6 +65,8 @@ createCube = Cube W W W  O O O  Y Y Y  G G G  R R R  B B B
                   W W W  O O O  Y Y Y  G G G  R R R  B B B
                   W W W  O O O  Y Y Y  G G G  R R R  B B B
 
+newtype Rotation (Cube -> Cube)
+
 f_ :: Cube -> Cube
 f_   (Cube f1 f2 f3  r1 r2 r3  b1 b2 b3  u1 u2 u3  l1 l2 l3  d1 d2 d3
            f4 f5 f6  r4 r5 r6  b4 b5 b6  u4 u5 u6  l4 l5 l6  d4 d5 d6
@@ -104,74 +94,74 @@ x_   (Cube f1 f2 f3  r1 r2 r3  b1 b2 b3  u1 u2 u3  l1 l2 l3  d1 d2 d3
 reverse :: (Cube -> Cube) -> (Cube -> Cube)
 reverse f = f >>> f >>> f
 
-f :: Cube -> Cube
-f = f_
+f  :: Cube -> Cube
+f  = f_
 
 f' :: Cube -> Cube
 f' = reverse f
 
-r :: Cube -> Cube
-r = y >>> f >>> y'
+r  :: Cube -> Cube
+r  = y >>> f >>> y'
 
 r' :: Cube -> Cube
 r' = reverse r
 
-b :: Cube -> Cube
-b = y >>> y >>> f >>> y >>> y
+b  :: Cube -> Cube
+b  = y >>> y >>> f >>> y >>> y
 
 b' :: Cube -> Cube
 b' = reverse b
 
-u :: Cube -> Cube
-u = x' >>> f >>> x
+u  :: Cube -> Cube
+u  = x' >>> f >>> x
 
 u' :: Cube -> Cube
 u' = reverse u
 
-l :: Cube -> Cube
-l = y' >>> f >>> y
+l  :: Cube -> Cube
+l  = y' >>> f >>> y
 
 l' :: Cube -> Cube
 l' = reverse l
 
-d :: Cube -> Cube
-d = x >>> f >>> x'
+d  :: Cube -> Cube
+d  = x >>> f >>> x'
 
 d' :: Cube -> Cube
 d' = reverse d
 
-s :: Cube -> Cube
-s = s_
+s  :: Cube -> Cube
+s  = s_
 
 s' :: Cube -> Cube
 s' = reverse s
 
-m :: Cube -> Cube
-m = y' >>> s >>> y
+m  :: Cube -> Cube
+m  = y' >>> s >>> y
 
 m' :: Cube -> Cube
 m' = reverse m
 
-e :: Cube -> Cube
-e = x >>> s >>> x'
+e  :: Cube -> Cube
+e  = x >>> s >>> x'
 
 e' :: Cube -> Cube
 e' = reverse e
 
-x :: Cube -> Cube
-x = x_
+x  :: Cube -> Cube
+x  = x_
 
 x' :: Cube -> Cube
 x' = reverse x
 
-y :: Cube -> Cube
-y = u >>> e' >>> d'
+y  :: Cube -> Cube
+y  = u >>> e' >>> d'
 
 y' :: Cube -> Cube
 y' = reverse y
 
-z :: Cube -> Cube
-z = f >>> s >>> b'
+z  :: Cube -> Cube
+z  = f >>> s >>> b'
 
 z' :: Cube -> Cube
 z' = reverse z
