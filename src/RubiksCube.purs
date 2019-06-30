@@ -1,6 +1,7 @@
 module RubiksCube
    ( Cube
    , createCube
+   , scramble
    , f, f'
    , r, r'
    , b, b'
@@ -16,6 +17,12 @@ module RubiksCube
    ) where
 
 import Prelude
+
+import Data.Array (length, (!!), (:))
+import Data.Foldable (foldr)
+import Data.Maybe (fromMaybe)
+import Effect (Effect)
+import Effect.Random (randomInt)
 
 data C = W | O | Y | G | R | B
 
@@ -163,3 +170,18 @@ z  = f >>> s >>> b'
 
 z' :: Cube -> Cube
 z' = reverse z
+
+scramble :: Cube -> Int -> Effect Cube
+scramble cube n = foldr ($) cube <$> genScramble n
+   where
+      genScramble :: Int -> Effect (Array (Cube -> Cube))
+      genScramble 0 = pure []
+      genScramble n' = (:) <$> scrmbl <*> (genScramble $ n' - 1)
+         where
+            scrmbl  = fromMaybe identity <$> scrmbl'
+            scrmbl' = (!!) operations <$> randomInt 0 maxIdx
+            maxIdx  = length operations - 1
+
+
+operations :: Array (Cube -> Cube)
+operations = [f, f', r, r', b, b', u, u', l, l', d, d', s, s', m, m', e, e', x, x', y, y', z, z']
