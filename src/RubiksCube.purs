@@ -97,7 +97,7 @@ x_   (Cube f1 f2 f3  r1 r2 r3  b1 b2 b3  u1 u2 u3  l1 l2 l3  d1 d2 d3
            d1 d4 d7  r9 r6 r3  u9 u6 u3  f3 f2 f1  l1 l4 l7  b3 b2 b1
 
 reverse :: (Cube -> Cube) -> (Cube -> Cube)
-reverse f = f >>> f >>> f
+reverse a = a >>> a >>> a
 
 f  :: Cube -> Cube
 f  = f_

@@ -1,8 +1,18 @@
 module RubiksCube.Pattern where
 
-import Prelude
+import Prelude ((>>>))
 
-import RubiksCube
+import RubiksCube ( Cube
+                  , f, f'
+                  , r, r'
+                  , b, b'
+                  , u, u'
+                  , l, l'
+                  , d, d'
+                  , s
+                  , m, m'
+                  , e, e'
+                  )
 
 checkerCube :: Cube -> Cube
 checkerCube = m >>> m >>> e >>> e >>> s >>> s
